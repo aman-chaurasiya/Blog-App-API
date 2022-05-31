@@ -44,10 +44,10 @@ public class PostController {
 
     // create
     @PostMapping("/user/{userId}/category/{categoryId}/posts")
-    public ResponseEntity<PostDto> createPost(@RequestBody PostDto poatDto, @PathVariable Integer userId,
+    public ResponseEntity<PostDto> createPost(@RequestBody PostDto postDto, @PathVariable Integer userId,
                                               @PathVariable Integer categoryId) {
 
-        PostDto createPost = this.postService.createPost(poatDto, userId, categoryId);
+        PostDto createPost = this.postService.createPost(postDto, userId, categoryId);
         return new ResponseEntity<PostDto>(createPost, HttpStatus.CREATED);
 
     }

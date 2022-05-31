@@ -1,11 +1,14 @@
 package com.codewithaman.blog.payloads;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.codewithaman.blog.entities.Category;
+import com.codewithaman.blog.entities.Comment;
 import com.codewithaman.blog.entities.User;
 
 import lombok.AllArgsConstructor;
@@ -28,5 +31,7 @@ public class PostDto {
 	private CategoryDto category;
 
 	private UserDto user;
+
+	private Set<CommentDto> comments= new HashSet<>();
 
 }

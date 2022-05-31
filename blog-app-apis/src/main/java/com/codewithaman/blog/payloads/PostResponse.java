@@ -20,6 +20,7 @@ public class PostResponse {
 	private long totalElement;
 	private int totalPage;
 	private boolean lastPage;
+
 	
 	
 

@@ -1,6 +1,7 @@
 package com.codewithaman.blog.controllers;
 
 import com.codewithaman.blog.Security.JwtTokenHelper;
+import com.codewithaman.blog.exceptions.ApiException;
 import com.codewithaman.blog.payloads.JwtAuthRequest;
 import com.codewithaman.blog.payloads.JwtAuthResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<JwtAuthResponse> createToken(
-            @RequestBody JwtAuthRequest request) throws Exception {
+            @RequestBody JwtAuthRequest request) throws Exception, ApiException {
         this.authenticate(request.getUsername(), request.getPassword());
         UserDetails userDetails = this.userDetailsService.loadUserByUsername(request.getUsername());
         String token = this.jwtTokenHelper.generateToken(userDetails);
@@ -40,7 +41,7 @@ public class AuthController {
         return new ResponseEntity<JwtAuthResponse>(jwtAuthResponse, HttpStatus.OK);
     }
 
-    private void authenticate(String username, String password) throws Exception {
+    private void authenticate(String username, String password) throws ApiException {
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
         try {
             this.authenticationManager.authenticate(authenticationToken);
@@ -48,7 +49,7 @@ public class AuthController {
         } catch (BadCredentialsException e) {
 
             System.out.println("Bad credential Exception!!");
-            throw new Exception("Invalid username password!!");
+            throw new ApiException("Invalid username or password!!");
         }
 
     }
